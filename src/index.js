@@ -54,6 +54,10 @@ const Foo = class {
                 if (req.routerResponseType === 'plainHTML') {
                     return res.send(data)
                 }
+                if (req.routerResponseType === 'xml') {
+                    res.header('Content-Type', 'application/xml; charset=utf-8')
+                    return res.send(data)
+                }
 
                 const json = {
                     code: 200
