@@ -51,6 +51,10 @@ const Foo = class {
         const controller = async function (req, res, next) {
             try {
                 const data = await lastOne(req)
+                if (req.routerResponseType === 'plainHTML') {
+                    return res.send(data)
+                }
+
                 const json = {
                     code: 200
                 }
