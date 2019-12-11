@@ -6,8 +6,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "./node_modules/.bin/eslint src",
-    "build": "./node_modules/.bin/babel src -d lib",
-    "prepublishOnly": "npm run lint && npm run build"
+    "build": "./node_modules/.bin/babel src -d lib && cp package.json lib"
   },
   "dependencies": {},
   "devDependencies": {
