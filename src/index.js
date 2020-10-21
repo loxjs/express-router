@@ -58,6 +58,10 @@ const Foo = class {
                     res.header('Content-Type', 'application/xml; charset=utf-8')
                     return res.send(data)
                 }
+                if (req.routerResponseType === 'js') {
+                    res.header('Content-Type', 'text/javascript; charset=utf-8')
+                    return res.type('.js').send(data)
+                }
 
                 const json = {
                     code: 200
