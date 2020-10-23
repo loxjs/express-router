@@ -63,6 +63,15 @@ const Foo = class {
                     return res.type('.js').send(data)
                 }
 
+                // 禁用包装数据. 适用于程序需要自定义 code 或者返回数据中不需要包含 { code: 200 }.
+                // 如: 程序需要返回指定 code 的错误, 但又不仅只返回 code, 还需要返回额外的数据,
+                // { code: 132, data: { ticket: 'xxx' } }
+                if (data.__disablePackagingData === true) {
+                    data.__disablePackagingData = undefined
+                    return res.json(data)
+                }
+
+                // 包装数据
                 const json = {
                     code: 200
                 }
