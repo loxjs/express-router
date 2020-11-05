@@ -1,4 +1,5 @@
 
+const isArray = require('lodash/isArray')
 const isUndefined = require('lodash/isUndefined')
 const isPlainObject = require('lodash/isPlainObject')
 const express = require('express')
@@ -33,7 +34,11 @@ const Foo = class {
             currPath
         } = this
         if (!isUndefined(cache[currPath])) {
-            cache[currPath].controllers.push(controller)
+            if (isArray(controller)) {
+                cache[currPath].controllers.push(...controller)
+            } else {
+                cache[currPath].controllers.push(controller)
+            }
         }
         return this
     }
