@@ -1,5 +1,6 @@
 
 const isArray = require('lodash/isArray')
+const isString = require('lodash/isString')
 const isUndefined = require('lodash/isUndefined')
 const isPlainObject = require('lodash/isPlainObject')
 const express = require('express')
@@ -57,6 +58,10 @@ const Foo = class {
         const controller = async function (req, res, next) {
             try {
                 const data = await lastOne(req)
+                // 处理 res.redirect 的需求
+                if (isString(req.routerRedirect) && req.routerRedirect.length > 0) {
+                    return res.redirect(req.routerRedirect)
+                }
                 // 处理自定义 HTTP Response Headers 的需求
                 if (isArray(req.routerResponseHeaders) && req.routerResponseHeaders.length > 0) {
                     for (const header of req.routerResponseHeaders) {
