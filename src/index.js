@@ -57,13 +57,22 @@ const Foo = class {
         const controller = async function (req, res, next) {
             try {
                 const data = await lastOne(req)
+                // 处理返回 http error code 的需求
+                if (!isUndefined(req.httpStatus)) {
+                    return isUndefined(data)
+                        ? res.status(req.httpStatus)
+                        : res.status(req.httpStatus).send(data)
+                }
+                // 处理返回 HTML 的需求
                 if (req.routerResponseType === 'plainHTML') {
                     return res.send(data)
                 }
+                // 处理返回 XML 的需求
                 if (req.routerResponseType === 'xml') {
                     res.header('Content-Type', 'application/xml; charset=utf-8')
                     return res.send(data)
                 }
+                // 处理返回 js 代码的需求
                 if (req.routerResponseType === 'js') {
                     res.header('Content-Type', 'text/javascript; charset=utf-8')
                     return res.type('.js').send(data)
