@@ -57,11 +57,17 @@ const Foo = class {
         const controller = async function (req, res, next) {
             try {
                 const data = await lastOne(req)
+                // 处理自定义 HTTP Response Headers 的需求
+                if (isArray(req.routerResponseHeaders) && req.routerResponseHeaders.length > 0) {
+                    for (const header of req.routerResponseHeaders) {
+                        res.header(...header)
+                    }
+                }
                 // 处理返回 http error code 的需求
-                if (!isUndefined(req.httpStatus)) {
+                if (!isUndefined(req.routerHTTPStatus)) {
                     return isUndefined(data)
-                        ? res.status(req.httpStatus)
-                        : res.status(req.httpStatus).send(data)
+                        ? res.status(req.routerHTTPStatus)
+                        : res.status(req.routerHTTPStatus).send(data)
                 }
                 // 处理返回 HTML 的需求
                 if (req.routerResponseType === 'plainHTML') {
