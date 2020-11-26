@@ -71,7 +71,7 @@ const Foo = class {
                 // 处理返回 http error code 的需求
                 if (!isUndefined(req.routerHTTPStatus)) {
                     return isUndefined(data)
-                        ? res.status(req.routerHTTPStatus)
+                        ? res.status(req.routerHTTPStatus).send()
                         : res.status(req.routerHTTPStatus).send(data)
                 }
                 // 处理返回 HTML 的需求
