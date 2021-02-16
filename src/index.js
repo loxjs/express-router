@@ -131,6 +131,10 @@ const Foo = class {
         return this.router
     }
 
+    use (callback) {
+        this.router.use(callback)
+    }
+
     get (path) {
         return this.path({
             path
