@@ -60,7 +60,8 @@ const Foo = class {
                 const data = await lastOne(req)
                 // 处理 res.location 的需求
                 if (isString(req.routerLocation) && req.routerLocation.length > 0) {
-                    return res.location(req.routerLocation)
+                    res.location(req.routerLocation)
+                    return res.status(req.routerHTTPStatus || 302).end()
                 }
                 // 处理 res.redirect 的需求
                 if (isString(req.routerRedirect) && req.routerRedirect.length > 0) {
