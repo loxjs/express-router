@@ -58,6 +58,10 @@ const Foo = class {
         const controller = async function (req, res, next) {
             try {
                 const data = await lastOne(req)
+                // 处理 res.location 的需求
+                if (isString(req.routerLocation) && req.routerLocation.length > 0) {
+                    return res.location(req.routerLocation)
+                }
                 // 处理 res.redirect 的需求
                 if (isString(req.routerRedirect) && req.routerRedirect.length > 0) {
                     return res.redirect(req.routerRedirect)
