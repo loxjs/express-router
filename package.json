@@ -1,6 +1,6 @@
 {
   "name": "@loxjs/express-router",
-  "version": "2.11.0",
+  "version": "2.12.0",
   "main": "index.js",
   "author": "Zen Li",
   "license": "MIT",
@@ -8,7 +8,6 @@
     "lint": "./node_modules/.bin/eslint src",
     "build": "./node_modules/.bin/babel src -d lib && cp package.json lib"
   },
-  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "7.12.1",
     "@babel/core": "7.12.3",
