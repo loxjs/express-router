@@ -58,11 +58,15 @@ const Foo = class {
         const controller = async function (req, res, next) {
             try {
                 const data = await lastOne(req)
-                if (!isUndefined(req.next)) {
-                    if (req.next === true) {
+                if (!isUndefined(req.routerNext)) {
+                    const {
+                        routerNext
+                    } = req
+                    req.routerNext = undefined
+                    if (routerNext === true) {
                         return next()
                     }
-                    return next(req.next)
+                    return next(routerNext)
                 }
                 // 处理 res.location 的需求
                 if (isString(req.routerLocation) && req.routerLocation.length > 0) {
