@@ -1,6 +1,6 @@
 {
   "name": "@loxjs/express-router",
-  "version": "2.13.0",
+  "version": "2.13.1",
   "main": "index.js",
   "author": "Zen Li",
   "license": "MIT",
