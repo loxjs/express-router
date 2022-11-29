@@ -103,6 +103,20 @@ const Foo = class {
                     res.header('Content-Type', 'text/javascript; charset=utf-8')
                     return res.type('.js').send(data)
                 }
+                // 处理返回 csv 代码的需求
+                if (req.routerResponseType === 'csv') {
+                    res.header('Content-Type', 'text/csv; charset=utf-8')
+                    if (req.filename) {
+                        let filename = req.filename.toString().trim()
+                        if (filename) {
+                            filename = filename.toLowerCase().endsWith('.csv')
+                                ? filename
+                                : `${ filename }.csv`
+                            res.attachment(filename)
+                        }
+                    }
+                    return res.type('.csv').send(data)
+                }
 
                 // 禁用包装数据. 适用于程序需要自定义 code 或者返回数据中不需要包含 { code: 200 }.
                 // 如: 程序需要返回指定 code 的错误, 但又不仅只返回 code, 还需要返回额外的数据,
