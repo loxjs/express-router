@@ -16,13 +16,13 @@ const Foo = class {
 
     path ({
         method = 'get',
-        path = '/'
+        path = '/',
     } = {}) {
         const currPath = Symbol(`${ method } ${ path }`)
         this.cache[currPath] = {
             method,
             path,
-            controllers: []
+            controllers: [],
         }
         this.currPath = currPath
         this.cacheArr.push(this.cache[currPath])
@@ -32,7 +32,7 @@ const Foo = class {
     controller (controller) {
         const {
             cache,
-            currPath
+            currPath,
         } = this
         if (!isUndefined(cache[currPath])) {
             if (isArray(controller)) {
@@ -47,7 +47,7 @@ const Foo = class {
     generate ({
         method,
         path,
-        controllers
+        controllers,
     }) {
         if (controllers.length < 1) {
             return
@@ -60,7 +60,7 @@ const Foo = class {
                 const data = await lastOne(req)
                 if (!isUndefined(req.routerNext)) {
                     const {
-                        routerNext
+                        routerNext,
                     } = req
                     req.routerNext = undefined
                     if (routerNext === true) {
@@ -131,7 +131,7 @@ const Foo = class {
 
                 // 包装数据
                 const json = {
-                    code: 200
+                    code: 200,
                 }
 
                 if (!isUndefined(data)) {
@@ -151,7 +151,7 @@ const Foo = class {
 
     end () {
         const {
-            cacheArr
+            cacheArr,
         } = this
         for (const router of cacheArr) {
             this.generate(router)
@@ -166,42 +166,42 @@ const Foo = class {
 
     get (path) {
         return this.path({
-            path
+            path,
         })
     }
 
     post (path) {
         return this.path({
             method: 'post',
-            path
+            path,
         })
     }
 
     put (path) {
         return this.path({
             method: 'put',
-            path
+            path,
         })
     }
 
     patch (path) {
         return this.path({
             method: 'patch',
-            path
+            path,
         })
     }
 
     delete (path) {
         return this.path({
             method: 'delete',
-            path
+            path,
         })
     }
 
     head (path) {
         return this.path({
             method: 'head',
-            path
+            path,
         })
     }
 }
